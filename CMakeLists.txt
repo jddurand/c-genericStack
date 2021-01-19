@@ -4,6 +4,8 @@ IF (NOT MYPACKAGEBOOTSTRAP_DONE)
 ENDIF ()
 MYPACKAGESTART (genericStack 1 1 3)
 
+MYPACKAGECONFIG(test/config.h.in test/config.h)
+
 ###############
 # Executables #
 ###############
