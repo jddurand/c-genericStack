@@ -24,7 +24,6 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - uses: ilammy/msvc-dev-cmd@v1
-    - uses: leafo/gh-actions-lua@v10
 
     - name: Configure
       run: cmake -Wno-dev -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}} -G "NMake Makefiles" .
