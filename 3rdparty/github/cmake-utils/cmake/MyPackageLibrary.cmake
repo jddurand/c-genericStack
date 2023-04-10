@@ -116,7 +116,7 @@ MACRO (MYPACKAGELIBRARY config_in config_out)
   # Project's own include directories
   #
   SET (_project_include_directories ${CMAKE_CURRENT_BINARY_DIR}/output/include ${PROJECT_SOURCE_DIR}/include)
-  FOREACH (_target ${PROJECT_NAME}_objs ${PROJECT_NAME}_static_objs)
+  FOREACH (_target ${PROJECT_NAME}_objs ${PROJECT_NAME}_static_objs ${PROJECT_NAME} ${PROJECT_NAME}_static)
     FOREACH (_include_directory ${_project_include_directories})
       IF (MYPACKAGE_DEBUG)
         MESSAGE (STATUS "[${PROJECT_NAME}-LIBRARY-DEBUG] Adding PUBLIC ${build_local_interface} ${_include_directory} include dependency to ${_target}")
