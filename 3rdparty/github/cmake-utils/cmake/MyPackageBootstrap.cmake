@@ -75,10 +75,10 @@ IF (NOT MYPACKAGEBOOTSTRAP_DONE)
     COMMAND ${CMAKE_COMMAND} -E echo ----------------------------------
     COMMAND ${CMAKE_COMMAND} -E env CTEST_OUTPUT_ON_FAILURE=1 ${CMAKE_CTEST_COMMAND} -C $<CONFIG>
     )
-	#
-	# Local interface keyword
-	#
-	IF (CMAKE_VERSION VERSION_LESS "3.26")
+    #
+    # Local interface keyword
+    #
+    IF (CMAKE_VERSION VERSION_LESS "3.26")
       SET (build_local_interface "BUILD_INTERFACE")
     ELSE ()
       SET (build_local_interface "BUILD_LOCAL_INTERFACE")

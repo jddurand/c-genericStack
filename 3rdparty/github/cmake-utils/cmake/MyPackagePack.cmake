@@ -38,18 +38,25 @@ MACRO (MYPACKAGEPACK VENDOR SUMMARY)
     #
     SET (CPACK_ARCHIVE_COMPONENT_INSTALL ON)
     #
+    # We need a way to know if make install is running under CPACK or not
+    #
+    SET (CPACK_PROJECT_CONFIG_FILE_PATH ${CMAKE_CURRENT_BINARY_DIR}/cpack_project_config_file.cmake)
+    FILE (WRITE ${CPACK_PROJECT_CONFIG_FILE_PATH} "message(STATUS \"Setting ENV{CPACK_IS_RUNNING}\")\n")
+    FILE (APPEND ${CPACK_PROJECT_CONFIG_FILE_PATH} "set(ENV{CPACK_IS_RUNNING} TRUE)\n")
+    SET (CPACK_PROJECT_CONFIG_FILE ${CPACK_PROJECT_CONFIG_FILE_PATH})
+    #
     # Include CPack - from now on we will have access to CPACK own macros
     #
     INCLUDE (CPack)
     #
     # Groups
     #
-    IF (${PROJECT_NAME}_HAVE_HEADERCOMPONENT OR ${PROJECT_NAME}_HAVE_CMAKECOMPONENT)
+    IF (${PROJECT_NAME}_HAVE_HEADERCOMPONENT)
       SET (_CAN_DEVELOPMENTGROUP TRUE)
     ELSE ()
       SET (_CAN_DEVELOPMENTGROUP FALSE)
     ENDIF ()
-    IF (${PROJECT_NAME}_HAVE_DYNAMICLIBRARYCOMPONENT OR ${PROJECT_NAME}_HAVE_STATICLIBRARYCOMPONENT)
+    IF (${PROJECT_NAME}_HAVE_LIBRARYCOMPONENT)
       SET (_CAN_LIBRARYGROUP TRUE)
     ELSE ()
       SET (_CAN_LIBRARYGROUP FALSE)
@@ -100,10 +107,8 @@ MACRO (MYPACKAGEPACK VENDOR SUMMARY)
     SET (CPACK_COMPONENTS_ALL)
     IF (MYPACKAGE_DEBUG)
       MESSAGE (STATUS "[${PROJECT_NAME}-PACK-DEBUG] Manpage component        : ${${PROJECT_NAME}_HAVE_MANPAGECOMPONENT}")
-      MESSAGE (STATUS "[${PROJECT_NAME}-PACK-DEBUG] Dynamic Library component: ${${PROJECT_NAME}_HAVE_DYNAMICLIBRARYCOMPONENT}")
-      MESSAGE (STATUS "[${PROJECT_NAME}-PACK-DEBUG] Static Library component : ${${PROJECT_NAME}_HAVE_STATICLIBRARYCOMPONENT}")
+      MESSAGE (STATUS "[${PROJECT_NAME}-PACK-DEBUG] Library component        : ${${PROJECT_NAME}_HAVE_LIBRARYCOMPONENT}")
       MESSAGE (STATUS "[${PROJECT_NAME}-PACK-DEBUG] Header component         : ${${PROJECT_NAME}_HAVE_HEADERCOMPONENT}")
-      MESSAGE (STATUS "[${PROJECT_NAME}-PACK-DEBUG] CMake component          : ${${PROJECT_NAME}_HAVE_CMAKECOMPONENT}")
       MESSAGE (STATUS "[${PROJECT_NAME}-PACK-DEBUG] Application component    : ${${PROJECT_NAME}_HAVE_APPLICATIONCOMPONENT}")
     ENDIF ()
     IF (${PROJECT_NAME}_HAVE_MANPAGECOMPONENT)
@@ -117,27 +122,16 @@ MACRO (MYPACKAGEPACK VENDOR SUMMARY)
                           )
       LIST (APPEND CPACK_COMPONENTS_ALL ManpageComponent)
     ENDIF ()
-    IF (${PROJECT_NAME}_HAVE_DYNAMICLIBRARYCOMPONENT)
+    IF (${PROJECT_NAME}_HAVE_LIBRARYCOMPONENT)
       IF (MYPACKAGE_DEBUG)
-        MESSAGE (STATUS "[${PROJECT_NAME}-PACK-DEBUG] ... Add DynamicLibraryComponent")
+        MESSAGE (STATUS "[${PROJECT_NAME}-PACK-DEBUG] ... Add LibraryComponent")
       ENDIF ()
-      CPACK_ADD_COMPONENT(DynamicLibraryComponent
-                          DISPLAY_NAME "Dynamic"
-                          DESCRIPTION "Dynamic Libraries"
+      CPACK_ADD_COMPONENT(LibraryComponent
+                          DISPLAY_NAME "Libraries"
+                          DESCRIPTION "Dynamic and Static Libraries"
                           GROUP LibraryGroup
                           )
-      LIST (APPEND CPACK_COMPONENTS_ALL DynamicLibraryComponent)
-    ENDIF ()
-    IF (${PROJECT_NAME}_HAVE_STATICLIBRARYCOMPONENT)
-      IF (MYPACKAGE_DEBUG)
-        MESSAGE (STATUS "[${PROJECT_NAME}-PACK-DEBUG] ... Add StaticLibraryComponent")
-      ENDIF ()
-      CPACK_ADD_COMPONENT(StaticLibraryComponent
-                          DISPLAY_NAME "Static"
-                          DESCRIPTION "Static Libraries"
-                          GROUP LibraryGroup
-                          )
-      LIST (APPEND CPACK_COMPONENTS_ALL StaticLibraryComponent)
+      LIST (APPEND CPACK_COMPONENTS_ALL LibraryComponent)
     ENDIF ()
     IF (${PROJECT_NAME}_HAVE_HEADERCOMPONENT)
       IF (MYPACKAGE_DEBUG)
@@ -150,17 +144,6 @@ MACRO (MYPACKAGEPACK VENDOR SUMMARY)
                           )
       LIST (APPEND CPACK_COMPONENTS_ALL HeaderComponent)
     ENDIF ()
-    IF (${PROJECT_NAME}_HAVE_CMAKECOMPONENT)
-      IF (MYPACKAGE_DEBUG)
-        MESSAGE (STATUS "[${PROJECT_NAME}-PACK-DEBUG] ... Add CMakeComponent")
-      ENDIF ()
-      CPACK_ADD_COMPONENT(CMakeComponent
-                          DISPLAY_NAME "CMake"
-                          DESCRIPTION "CMake imports"
-                          GROUP DevelopmentGroup
-                          )
-      LIST (APPEND CPACK_COMPONENTS_ALL CMakeComponent)
-    ENDIF ()
     IF (${PROJECT_NAME}_HAVE_APPLICATIONCOMPONENT)
       IF (MYPACKAGE_DEBUG)
         MESSAGE (STATUS "[${PROJECT_NAME}-PACK-DEBUG] ... Add ApplicationComponent")
@@ -169,7 +152,7 @@ MACRO (MYPACKAGEPACK VENDOR SUMMARY)
                           DISPLAY_NAME "Applications"
                           DESCRIPTION "Executables"
                           GROUP RuntimeGroup
-                          DEPENDS DynamicLibraryComponent)
+                          DEPENDS LibraryComponent)
       LIST (APPEND CPACK_COMPONENTS_ALL ApplicationComponent)
     ENDIF ()
   ENDIF ()		    
