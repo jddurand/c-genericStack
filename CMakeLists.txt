@@ -31,6 +31,12 @@ MYPACKAGECHECK(genericStackTesterDefaultInitialStackMemset)
 MYPACKAGECHECK(genericStackTesterSmallInitialStackMemset)
 MYPACKAGECHECK(genericStackTesterNoInitialStackMemset)
 
+##########
+# Export #
+##########
+MYPACKAGECMAKEEXPORT()
+MYPACKAGEPKGCONFIGEXPORT()
+
 #############
 # Packaging #
 #############
