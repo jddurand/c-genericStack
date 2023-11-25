@@ -102,6 +102,7 @@ after_build:
   - cmake --build build_folder --config RelWithDebInfo --target package
   - cd build_folder
   - for %%a in ("*.exe") do ren "%%~a" "%%~Na-%_CC%%%~Xa"
+  - cd ..
 
 test_script:
   - ctest --test-dir build_folder -C RelWithDebInfo
