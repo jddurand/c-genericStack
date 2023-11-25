@@ -26,11 +26,13 @@ jobs:
     - uses: ilammy/msvc-dev-cmd@v1
 
     - name: Configure
-      run: cmake -Wno-dev -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}} -G "NMake Makefiles" .
+      run: cmake -S . -B ..\build -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}} -G "NMake Makefiles"
 
-    - name: Check
-      run: nmake check VERBOSE=1
+    - name: Test
+      run: ctest --test-dir ..\build -C ${{env.BUILD_TYPE}}
+
+    - name: Install
+      run: cmake --install ..\build --prefix ..\install
 
     - name: Package
-      run: cpack
-
+      run: cmake --build ..\build --target package

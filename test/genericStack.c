@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "config.h"
+#include "test/config.h"
 
 typedef struct myStruct {
   short isstring;
