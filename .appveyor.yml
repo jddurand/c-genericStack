@@ -94,24 +94,24 @@ init:
   - ECHO %PATH%
 
 build_script:
-  - cmake -S C:\projects\%APPVEYOR_PROJECT_NAME% -B C:\projects\%APPVEYOR_PROJECT_NAME%_build
-  - cmake --build C:\projects\%APPVEYOR_PROJECT_NAME%_build --config RelWithDebInfo
+  - cmake -S . -B build_folder
+  - cmake --build build_folder --config RelWithDebInfo
 
 after_build:
-  - cmake --install C:\projects\%APPVEYOR_PROJECT_NAME%_build --config RelWithDebInfo --prefix C:\projects\%APPVEYOR_PROJECT_NAME%_install
-  - cmake --build C:\projects\%APPVEYOR_PROJECT_NAME%_build --config RelWithDebInfo --target package
-  - cd C:\projects\%APPVEYOR_PROJECT_NAME%_build
+  - cmake --install build_folder --config RelWithDebInfo --prefix ..\install_folder
+  - cmake --build build_folder --config RelWithDebInfo --target package
+  - cd build_folder
   - for %%a in ("*.exe") do ren "%%~a" "%%~Na-%_CC%%%~Xa"
 
 test_script:
-  - ctest --test-dir C:\projects\%APPVEYOR_PROJECT_NAME%_build -C RelWithDebInfo
+  - ctest --test-dir build_folder -C RelWithDebInfo
 
 on_failure:
-  - ps: if(Test-Path C:\projects\%APPVEYOR_PROJECT_NAME%_build\CMakeFiles\CMakeOutput.log) { cat C:\projects\%APPVEYOR_PROJECT_NAME%_build\CMakeFiles\CMakeOutput.log }
-  - ps: if(Test-Path C:\projects\%APPVEYOR_PROJECT_NAME%_build\CMakeFiles\CMakeError.log) { cat C:\projects\%APPVEYOR_PROJECT_NAME%_build\CMakeFiles\CMakeError.log }
+  - ps: if(Test-Path build_folder\CMakeFiles\CMakeOutput.log) { cat build_folder\CMakeFiles\CMakeOutput.log }
+  - ps: if(Test-Path build_folder\CMakeFiles\CMakeError.log) { cat build_folder\CMakeFiles\CMakeError.log }
 
 artifacts:
-  - path: "C:/projects/%APPVEYOR_PROJECT_NAME%_build/*.exe"
+  - path: "../build_folder/*.exe"
     name: MyArtifact
 
 deploy:
