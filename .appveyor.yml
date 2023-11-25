@@ -112,7 +112,7 @@ on_failure:
   - ps: if(Test-Path build_folder\CMakeFiles\CMakeError.log) { cat build_folder\CMakeFiles\CMakeError.log }
 
 artifacts:
-  - path: "../build_folder/*.exe"
+  - path: "build_folder/*.exe"
     name: MyArtifact
 
 deploy:
