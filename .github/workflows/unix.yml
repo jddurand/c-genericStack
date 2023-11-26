@@ -27,19 +27,19 @@ jobs:
       uses: actions/checkout@v3
 
     - name: Configure
-      run: cmake -S . -B ..\build_folder -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}} -G "Unix Makefiles"
+      run: cmake -S . -B ../build_folder -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}} -G "Unix Makefiles"
 
     - name: Build
-      run: cmake --build ..\build_folder
+      run: cmake --build ../build_folder
 
     - name: Test
-      run: ctest --test-dir ..\build_folder
+      run: ctest --test-dir ../build_folder
 
     - name: Install
-      run: cmake --install ..\build_folder --prefix ..\install_folder
+      run: cmake --install ../build_folder --prefix ../install_folder
 
     - name: Package
-      run: cmake --build ..\build_folder --target package
+      run: cmake --build ../build_folder --target package
 
     - name: Look for dumps
       run: |
