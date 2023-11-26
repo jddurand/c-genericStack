@@ -98,7 +98,7 @@ build_script:
   - cmake --build build_folder --config RelWithDebInfo
 
 after_build:
-  - cmake --install build_folder --config RelWithDebInfo --prefix ..\install_folder
+  - cmake --install build_folder --config RelWithDebInfo --prefix install_folder
   - cmake --build build_folder --config RelWithDebInfo --target package
   - cd build_folder
   - for %%a in ("*.exe") do ren "%%~a" "%%~Na-%_CC%%%~Xa"
