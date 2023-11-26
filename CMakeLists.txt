@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.26.0 FATAL_ERROR)
-project(genericStack VERSION 1.1.12 LANGUAGES C)
+project(genericStack VERSION 1.1.13 LANGUAGES C)
 #
 # Get library helper
 #
