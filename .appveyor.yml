@@ -64,6 +64,14 @@ environment:
 #     _ARCH: x64
 #     APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2013
 
+#
+# Make sure we always have (a decent) perl
+#
+install:
+  - cmd: if not exist "C:\strawberry" cinst strawberryperl
+  - cmd: set PATH=%SP%\perl\bin;%SP%\perl\site\bin;%SP%\c\bin;%PATH%
+  - perl -v
+
 build:
   verbosity: detailed
   parallel: true
