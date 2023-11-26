@@ -26,16 +26,16 @@ jobs:
     - uses: ilammy/msvc-dev-cmd@v1
 
     - name: Configure
-      run: cmake -S . -B ..\build -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}} -G "NMake Makefiles"
+      run: cmake -S . -B ..\build_folder -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}} -G "NMake Makefiles"
 
     - name: Build
       run: cmake --build ..\build_folder
 
     - name: Test
-      run: ctest --test-dir ..\build
+      run: ctest --test-dir ..\build_folder
 
     - name: Install
-      run: cmake --install ..\build --prefix ..\install
+      run: cmake --install ..\build_folder --prefix ..\install_folder
 
     - name: Package
-      run: cmake --build ..\build --target package
+      run: cmake --build ..\build_folder --target package
