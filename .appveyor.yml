@@ -76,6 +76,7 @@ install:
 #
   - cmd: cinst cmake
   - cmd: set PATH=C:\Program Files\CMake\bin;%PATH%
+  - cmake --version
 
 build:
   verbosity: detailed
