@@ -1,14 +1,3 @@
-#
-# cmake -S c-genericStack -B c-genericStack-build
-# cmake --build c-genericStack-build --config RelWithDebInfo
-# ctest --test-dir c-genericStack-build -C RelWithDebInfo
-# cmake --install c-genericStack-build --config RelWithDebInfo --prefix SOMEWHERE
-# cmake --build c-genericStack-build --config RelWithDebInfo --target package
-#
-# For CI:
-# - We use github workflows to test the make/nmake
-# - We use appveyor to test msbuild (github would have done it, just to have another CI)
-#
 cmake_minimum_required(VERSION 3.26.0 FATAL_ERROR)
 project(genericStack VERSION 1.1.12 LANGUAGES C)
 #
