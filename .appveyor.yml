@@ -69,8 +69,13 @@ environment:
 #
 install:
   - cmd: if not exist "C:\strawberry" cinst strawberryperl
-  - cmd: set PATH=%SP%\perl\bin;%SP%\perl\site\bin;%SP%\c\bin;%PATH%
+  - cmd: set PATH=C:\strawberry\perl\bin;C:\strawberry\perl\site\bin;C:\strawberry\c\bin;%PATH%
   - perl -v
+#
+# Make sure we always have (a decent) CMake
+#
+  - cmd: cinst cmake
+  - cmd: set PATH=C:\Program Files\CMake\bin;%PATH%
 
 build:
   verbosity: detailed
