@@ -36,7 +36,7 @@ jobs:
       run: ctest --test-dir ../build_folder
 
     - name: Install
-      run: cmake --install ../build_folder --prefix ../install_folder
+      run: cmake --install ../build_folder --prefix `pwd`/../install_folder
 
     - name: Package
       run: cmake --build ../build_folder --target package

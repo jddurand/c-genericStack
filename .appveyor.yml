@@ -112,8 +112,8 @@ build_script:
   - cmake --build build_folder
 
 after_build:
-  - cmake --install build_folder --prefix install_folder
-  - cmake --build build_folder --target package
+  - cmake --install build_folder --config RelWithDebInfo --prefix %cd%/install_folder
+  - cmake --build build_folder --config RelWithDebInfo --target package
   - cd build_folder
   - for %%a in ("*.exe") do ren "%%~a" "%%~Na-%_CC%%%~Xa"
   - cd ..

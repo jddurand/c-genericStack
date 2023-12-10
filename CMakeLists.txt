@@ -1,3 +1,13 @@
+#
+# cmake -S c-genericStack -B c-genericStack-build
+# cmake --build c-genericStack-build --config RelWithDebInfo
+# ctest --test-dir c-genericStack-build -C RelWithDebInfo
+# Windows:
+#   cmake --install c-genericStack-build --config RelWithDebInfo --prefix %cd%/c-genericStack-install
+# Others:
+#   cmake --install c-genericStack-build --config RelWithDebInfo --prefix `pwd`/c-genericStack-install
+# cmake --build c-genericStack-build --config RelWithDebInfo --target package
+#
 cmake_minimum_required(VERSION 3.26.0 FATAL_ERROR)
 project(genericStack VERSION 1.1.19 LANGUAGES C)
 #
@@ -7,7 +17,7 @@ include(FetchContent)
 FetchContent_Declare(cmake-helpers
   GIT_REPOSITORY https://github.com/jddurand/cmake-helpers.git
   GIT_SHALLOW TRUE
-  GIT_REMOTE_UPDATE_STRATEGY CHECKOUT # We always want the latest version
+  # GIT_REMOTE_UPDATE_STRATEGY CHECKOUT # We always want the latest version
 )
 FetchContent_MakeAvailable(cmake-helpers)
 #
