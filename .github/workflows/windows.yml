@@ -19,23 +19,28 @@ jobs:
         os: [windows-latest]
         include:
           - os: windows-latest
+            cmake_generator: "Visual Studio 17 2022"
+            cmake_generator_platform: "x64"
+          - os: windows-latest
+            cmake_generator: "Visual Studio 17 2022"
+            cmake_generator_platform: "Win32"
     runs-on: ${{ matrix.os }}
 
     steps:
     - uses: actions/checkout@v3
-    - uses: ilammy/msvc-dev-cmd@v1
+    - uses: microsoft/setup-msbuild@v1.3.1
 
     - name: Configure
-      run: cmake -S . -B ../build_folder -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}} -G "NMake Makefiles"
+      run: cmake -S . -B ../build_folder -G "${{matrix.cmake_generator}}" -A "${{matrix.cmake_generator_platform}}"
 
     - name: Build
-      run: cmake --build ../build_folder
+      run: cmake --build ../build_folder --config ${{env.BUILD_TYPE}}
 
     - name: Test
-      run: ctest --test-dir ../build_folder
+      run: ctest --test-dir ../build_folder --build-config ${{env.BUILD_TYPE}}
 
     - name: Install
-      run: cmake --install ../build_folder --prefix ${{github.workspace}}/../install_folder
+      run: cmake --install ../build_folder --prefix ${{github.workspace}}/../install_folder --config ${{env.BUILD_TYPE}}
 
     - name: Package
-      run: cmake --build ../build_folder --target package
+      run: cmake --build ../build_folder --target package --config ${{env.BUILD_TYPE}}
