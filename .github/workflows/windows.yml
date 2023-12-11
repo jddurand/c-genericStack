@@ -17,13 +17,8 @@ jobs:
       fail-fast: false
       matrix:
         os: [windows-latest]
-        include:
-          - os: windows-latest
-            cmake_generator: "Visual Studio 17 2022"
-            cmake_generator_platform: "x64"
-          - os: windows-latest
-            cmake_generator: "Visual Studio 17 2022"
-            cmake_generator_platform: "Win32"
+        cmake_generator: ["Visual Studio 17 2022"]
+        cmake_generator_platform: ["Win32","x64"]
     runs-on: ${{ matrix.os }}
 
     steps:
