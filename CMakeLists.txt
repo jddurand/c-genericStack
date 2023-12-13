@@ -9,7 +9,7 @@
 # cmake --build c-genericStack-build --config RelWithDebInfo --target package
 #
 cmake_minimum_required(VERSION 3.26.0 FATAL_ERROR)
-project(genericStack VERSION 1.1.19 LANGUAGES C)
+project(genericStack VERSION 1.1.20 LANGUAGES C)
 #
 # Get library helper
 #
