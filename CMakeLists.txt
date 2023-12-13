@@ -14,11 +14,7 @@ project(genericStack VERSION 1.1.19 LANGUAGES C)
 # Get library helper
 #
 include(FetchContent)
-FetchContent_Declare(cmake-helpers
-  GIT_REPOSITORY https://github.com/jddurand/cmake-helpers.git
-  GIT_SHALLOW TRUE
-  # GIT_REMOTE_UPDATE_STRATEGY CHECKOUT # We always want the latest version
-)
+FetchContent_Declare(cmake-helpers GIT_REPOSITORY https://github.com/jddurand/cmake-helpers.git GIT_SHALLOW TRUE)
 FetchContent_MakeAvailable(cmake-helpers)
 #
 # Create library
