@@ -10,58 +10,57 @@ clone_depth: 100     # For other git providers
 #
 environment:
   CTEST_OUTPUT_ON_FAILURE: 1
-upload_token:
-  secure:
-matrix:
- fast_finish: true # Immediately finish build once one of the jobs fails
- - _CC: VS2022
-   _ARCH: x86
-   APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2022
- - _CC: VS2022
-   _ARCH: x64
-   APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2022
- - _CC: VS2019
-   _ARCH: x86
-   APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2019
- - _CC: VS2019
-   _ARCH: x64
-   APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2019
- - _CC: VS2017
-   _ARCH: x86
-   APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2017
- - _CC: VS2017
-   _ARCH: x64
-   APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2017
- - _CC: VS2015
-   _ARCH: x86
-   APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2015
- - _CC: VS2015
-   _ARCH: x64
-   APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2015
- - _CC: VS2013
-   _ARCH: x86
-   APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2013
- - _CC: VS2013
-   _ARCH: x64
-   APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2013
- - _CC: VS2012
-   _ARCH: x86
-   APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2013
- - _CC: VS2012
-   _ARCH: x64
-   APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2013
- - _CC: VS2010
-   _ARCH: x86
-   APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2013
- - _CC: VS2010
-   _ARCH: x64
-   APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2013
- - _CC: VS2008
-   _ARCH: x86
-   APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2013
- - _CC: VS2008
-   _ARCH: x64
-   APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2013
+  upload_token:
+    secure:
+  matrix:
+   - _CC: VS2022
+     _ARCH: x86
+     APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2022
+   - _CC: VS2022
+     _ARCH: x64
+     APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2022
+   - _CC: VS2019
+     _ARCH: x86
+     APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2019
+   - _CC: VS2019
+     _ARCH: x64
+     APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2019
+   - _CC: VS2017
+     _ARCH: x86
+     APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2017
+   - _CC: VS2017
+     _ARCH: x64
+     APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2017
+   - _CC: VS2015
+     _ARCH: x86
+     APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2015
+   - _CC: VS2015
+     _ARCH: x64
+     APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2015
+   - _CC: VS2013
+     _ARCH: x86
+     APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2013
+   - _CC: VS2013
+     _ARCH: x64
+     APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2013
+   - _CC: VS2012
+     _ARCH: x86
+     APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2013
+   - _CC: VS2012
+     _ARCH: x64
+     APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2013
+   - _CC: VS2010
+     _ARCH: x86
+     APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2013
+   - _CC: VS2010
+     _ARCH: x64
+     APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2013
+   - _CC: VS2008
+     _ARCH: x86
+     APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2013
+   - _CC: VS2008
+     _ARCH: x64
+     APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2013
 
 #
 # Make sure we always have (a decent) perl
@@ -82,6 +81,9 @@ build:
   parallel: true
 
 clone_folder: C:\projects\%APPVEYOR_PROJECT_NAME%
+
+matrix:
+  fast_finish: true # Immediately finish build once one of the jobs fails
 
 init:
   - IF "%_CC%" == "VS2022" IF "%_ARCH%" == "x86" call "C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Auxiliary\Build\vcvars32.bat"
