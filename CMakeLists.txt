@@ -1,4 +1,6 @@
 #
+# Multi-config generator, e.g. Visual Studio on Windows:
+#
 # cmake -S c-genericStack -B c-genericStack-build
 # cmake --build c-genericStack-build --config RelWithDebInfo
 # ctest --test-dir c-genericStack-build -C RelWithDebInfo
@@ -7,6 +9,17 @@
 # Others:
 #   cmake --install c-genericStack-build --config RelWithDebInfo --prefix `pwd`/c-genericStack-install
 # cmake --build c-genericStack-build --config RelWithDebInfo --target package
+#
+# Single-config generator, e.g. NMake Makefiles on Windows, Unix Makefiles on Linxu:
+#
+# cmake -S c-genericStack -B c-genericStack-build -DCMAKE_BUILD_TYPE=RelWithDebInfo
+# cmake --build c-genericStack-build
+# ctest --test-dir c-genericStack-build
+# Windows:
+#   cmake --install c-genericStack-build --prefix %cd%/c-genericStack-install
+# Others:
+#   cmake --install c-genericStack-build --prefix `pwd`/c-genericStack-install
+# cmake --build c-genericStack-build --target package
 #
 cmake_minimum_required(VERSION 3.26.0 FATAL_ERROR)
 project(genericStack VERSION 1.1.20 LANGUAGES C)
